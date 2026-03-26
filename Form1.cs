@@ -172,7 +172,7 @@ namespace SimpleCalculator
                     return;
                 }
 
-                // 괄호 버튼 처리
+                // 괄호 버튼 생성, 처리
                 if (text == "(")
                 {
                     var cal = tbcal.Text;
