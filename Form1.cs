@@ -24,7 +24,7 @@ namespace SimpleCalculator
                         if (string.IsNullOrWhiteSpace(exp))
                             return;
 
-                        // X를 *로 변환 (곱하기 처리)
+                        // X를 *로 변환 (곱하기)
                         exp = exp.Replace("X", "*");
 
                         DataTable dt = new DataTable();
@@ -43,7 +43,7 @@ namespace SimpleCalculator
                 // 숫자 버튼을 클릭 시, 텍스트 박스에 숫자 추가
                 if (!string.IsNullOrEmpty(text) && (char.IsDigit(text[0]) || text == "."))
                 {
-                    // prevent multiple dots
+                   
                     if (text == "." && tbcal.Text.Contains('.'))
                         return;
 
