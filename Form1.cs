@@ -43,7 +43,7 @@ namespace SimpleCalculator
                 // 숫자 버튼을 클릭 시, 텍스트 박스에 숫자 추가
                 if (!string.IsNullOrEmpty(text) && (char.IsDigit(text[0]) || text == "."))
                 {
-                   
+
                     if (text == "." && tbcal.Text.Contains('.'))
                         return;
 
@@ -66,7 +66,7 @@ namespace SimpleCalculator
                 var ops = new[] { "+", "-", "X", "%" };
                 if (Array.IndexOf(ops, text) >= 0)
                 {
-                  
+
                     if (string.IsNullOrEmpty(tbcal.Text))
                     {
                         if (text == "-")
@@ -74,7 +74,7 @@ namespace SimpleCalculator
                         return;
                     }
 
-                
+
                     if (tbcal.Text.Length == 1 && tbcal.Text[0] == '-')
                     {
                         tbcal.Text += text;
@@ -88,7 +88,7 @@ namespace SimpleCalculator
                     }
                     else
                     {
-                   
+
                         tbcal.Text = tbcal.Text.Substring(0, tbcal.Text.Length - 1) + text;
                     }
                     return;
@@ -96,7 +96,26 @@ namespace SimpleCalculator
 
                 if (text == "CE")
                 {
-                    tbcal.Clear();
+                    var cal = tbcal.Text;
+                    if (string.IsNullOrEmpty(cal))
+                        return;
+
+                    int lastOpIndex = -1;
+                    for (int i = cal.Length - 1; i >= 1; i--)
+                    {
+                        char c = cal[i];
+                        if (c == '+' || c == '-' || c == 'X' || c == '%')
+                        {
+                            lastOpIndex = i;
+                            break;
+                        }
+                    }
+
+                    if (lastOpIndex >= 0)
+                        tbcal.Text = cal.Substring(0, lastOpIndex + 1);
+                    else
+                        tbcal.Clear();
+
                     return;
                 }
 
@@ -114,6 +133,11 @@ namespace SimpleCalculator
                     return;
                 }
             }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

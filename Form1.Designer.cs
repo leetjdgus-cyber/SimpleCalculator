@@ -343,7 +343,8 @@
             Controls.Add(tbresult);
             Controls.Add(tbcal);
             Name = "Form1";
-            Text = "Form1";
+            Text = "ㅊ";
+            Load += Form1_Load;
             ResumeLayout(false);
             PerformLayout();
         }
