@@ -24,14 +24,15 @@ namespace SimpleCalculator
                         if (string.IsNullOrWhiteSpace(exp))
                             return;
 
-                        // X를 *로 변환 (곱하기)
+                        // X를 *로 변환 (곱하기), %를 /로 변환 (나누기)
                         exp = exp.Replace("X", "*");
+                        exp = exp.Replace("÷", "/");
 
                         DataTable dt = new DataTable();
                         var result = dt.Compute(exp, "");
 
                         tbresult.Text = result.ToString();
-                        tbcal.Clear();
+                        tbcal.Text = exp.Replace("*", "X").Replace("/", "÷") + "=" + result.ToString();
                     }
                     catch
                     {
@@ -51,6 +52,21 @@ namespace SimpleCalculator
                         tbcal.Text = text;
                     else
                         tbcal.Text += text;
+
+                    // 결과창에 현재 입력 중인 숫자 표시
+                    var current = tbcal.Text;
+                    int lastOp = -1;
+                    for (int i = current.Length - 1; i >= 1; i--)
+                    {
+                        char c = current[i];
+                        if (c == '+' || c == '-' || c == 'X' || c == '÷')
+                        {
+                            lastOp = i;
+                            break;
+                        }
+                    }
+                    tbresult.Text = lastOp >= 0 ? current.Substring(lastOp + 1) : current;
+
                     return;
                 }
 
@@ -63,7 +79,7 @@ namespace SimpleCalculator
                 }
 
                 // 연산처리를 텍스트 박스에 추가
-                var ops = new[] { "+", "-", "X", "%" };
+                var ops = new[] { "+", "-", "X", "÷" };
                 if (Array.IndexOf(ops, text) >= 0)
                 {
 
@@ -91,6 +107,7 @@ namespace SimpleCalculator
 
                         tbcal.Text = tbcal.Text.Substring(0, tbcal.Text.Length - 1) + text;
                     }
+                    tbresult.Text = "0";
                     return;
                 }
                 //CE버튼 구현 완성, 연산자와 숫자 사이의 마지막 연산자까지만 남기고 나머지는 삭제
@@ -104,7 +121,7 @@ namespace SimpleCalculator
                     for (int i = cal.Length - 1; i >= 1; i--)
                     {
                         char c = cal[i];
-                        if (c == '+' || c == '-' || c == 'X' || c == '%')
+                        if (c == '+' || c == '-' || c == 'X' || c == '÷')
                         {
                             lastOpIndex = i;
                             break;

@@ -263,7 +263,7 @@
             bndivide.Name = "bndivide";
             bndivide.Size = new Size(74, 36);
             bndivide.TabIndex = 2;
-            bndivide.Text = "%";
+            bndivide.Text = "÷";
             bndivide.UseVisualStyleBackColor = true;
             bndivide.Click += button1_Click;
             // 
@@ -343,7 +343,7 @@
             Controls.Add(tbresult);
             Controls.Add(tbcal);
             Name = "Form1";
-            Text = "ㅊ";
+            Text = "sc";
             Load += Form1_Load;
             ResumeLayout(false);
             PerformLayout();
