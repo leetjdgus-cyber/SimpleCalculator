@@ -52,6 +52,8 @@
             bnplus = new Button();
             bnresult = new Button();
             bnSquare = new Button();
+            bnOpen = new Button();
+            bnClose = new Button();
             SuspendLayout();
             // 
             // tbcal
@@ -324,13 +326,37 @@
             // 
             bnSquare.Font = new Font("맑은 고딕", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 129);
             bnSquare.ForeColor = SystemColors.MenuHighlight;
-            bnSquare.Location = new Point(115, 548);
+            bnSquare.Location = new Point(294, 548);
             bnSquare.Name = "bnSquare";
-            bnSquare.Size = new Size(347, 46);
+            bnSquare.Size = new Size(168, 46);
             bnSquare.TabIndex = 3;
             bnSquare.Text = "x²";
             bnSquare.UseVisualStyleBackColor = true;
             bnSquare.Click += bnSquare_Click;
+            // 
+            // bnOpen
+            // 
+            bnOpen.Font = new Font("맑은 고딕", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 129);
+            bnOpen.ForeColor = SystemColors.MenuHighlight;
+            bnOpen.Location = new Point(115, 548);
+            bnOpen.Name = "bnOpen";
+            bnOpen.Size = new Size(74, 46);
+            bnOpen.TabIndex = 3;
+            bnOpen.Text = "(";
+            bnOpen.UseVisualStyleBackColor = true;
+            bnOpen.Click += button1_Click;
+            // 
+            // bnClose
+            // 
+            bnClose.Font = new Font("맑은 고딕", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 129);
+            bnClose.ForeColor = SystemColors.MenuHighlight;
+            bnClose.Location = new Point(205, 548);
+            bnClose.Name = "bnClose";
+            bnClose.Size = new Size(74, 46);
+            bnClose.TabIndex = 3;
+            bnClose.Text = ")";
+            bnClose.UseVisualStyleBackColor = true;
+            bnClose.Click += button1_Click;
             // 
             // Form1
             // 
@@ -338,6 +364,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.DimGray;
             ClientSize = new Size(622, 615);
+            Controls.Add(bnOpen);
+            Controls.Add(bnClose);
             Controls.Add(bnSquare);
             Controls.Add(bnresult);
             Controls.Add(bndot);
@@ -396,5 +424,7 @@
         private Button bnplus;
         private Button bnresult;
         private Button bnSquare;
+        private Button bnOpen;
+        private Button bnClose;
     }
 }

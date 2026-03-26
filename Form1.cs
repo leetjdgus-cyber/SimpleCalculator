@@ -44,6 +44,9 @@ namespace SimpleCalculator
                 // 숫자 버튼을 클릭 시, 텍스트 박스에 숫자 추가
                 if (!string.IsNullOrEmpty(text) && (char.IsDigit(text[0]) || text == "."))
                 {
+                    // ) 뒤에 숫자 입력 시 자동으로 X(곱하기) 삽입
+                    if (!string.IsNullOrEmpty(tbcal.Text) && tbcal.Text[tbcal.Text.Length - 1] == ')')
+                        tbcal.Text += "X";
 
                     if (text == "." && tbcal.Text.Contains('.'))
                         return;
@@ -59,7 +62,7 @@ namespace SimpleCalculator
                     for (int i = current.Length - 1; i >= 1; i--)
                     {
                         char c = current[i];
-                        if (c == '+' || c == '-' || c == 'X' || c == '÷')
+                        if (c == '+' || c == '-' || c == 'X' || c == '÷' || c == '(')
                         {
                             lastOp = i;
                             break;
@@ -98,7 +101,7 @@ namespace SimpleCalculator
                     }
 
                     var last = tbcal.Text[tbcal.Text.Length - 1];
-                    if (char.IsDigit(last) || last == '.')
+                    if (char.IsDigit(last) || last == '.' || last == ')')
                     {
                         tbcal.Text += text;
                     }
@@ -121,7 +124,7 @@ namespace SimpleCalculator
                     for (int i = cal.Length - 1; i >= 1; i--)
                     {
                         char c = cal[i];
-                        if (c == '+' || c == '-' || c == 'X' || c == '÷')
+                        if (c == '+' || c == '-' || c == 'X' || c == '÷' || c == '(')
                         {
                             lastOpIndex = i;
                             break;
@@ -154,7 +157,7 @@ namespace SimpleCalculator
                         for (int i = current.Length - 1; i >= 1; i--)
                         {
                             char c = current[i];
-                            if (c == '+' || c == '-' || c == 'X' || c == '÷')
+                            if (c == '+' || c == '-' || c == 'X' || c == '÷' || c == '(')
                             {
                                 lastOp = i;
                                 break;
@@ -165,6 +168,57 @@ namespace SimpleCalculator
                             tbresult.Text = "0";
                         else
                             tbresult.Text = lastOp >= 0 ? current.Substring(lastOp + 1) : current;
+                    }
+                    return;
+                }
+
+                // 괄호 버튼 처리
+                if (text == "(")
+                {
+                    var cal = tbcal.Text;
+                    if (string.IsNullOrEmpty(cal))
+                    {
+                        tbcal.Text = "(";
+                    }
+                    else if (cal.Contains('='))
+                    {
+                        tbcal.Clear();
+                        tbresult.Clear();
+                        tbcal.Text = "(";
+                    }
+                    else
+                    {
+                        var last = cal[cal.Length - 1];
+                        if (last == '+' || last == '-' || last == 'X' || last == '÷' || last == '(')
+                        {
+                            tbcal.Text += "(";
+                        }
+                        else if (char.IsDigit(last) || last == ')')
+                        {
+                            // 숫자나 ) 뒤에 ( 입력 시 자동으로 X(곱하기) 삽입
+                            tbcal.Text += "X(";
+                        }
+                    }
+                    return;
+                }
+
+                if (text == ")")
+                {
+                    var cal = tbcal.Text;
+                    if (!string.IsNullOrEmpty(cal))
+                    {
+                        int openCount = 0;
+                        int closeCount = 0;
+                        foreach (char ch in cal)
+                        {
+                            if (ch == '(') openCount++;
+                            else if (ch == ')') closeCount++;
+                        }
+                        var last = cal[cal.Length - 1];
+                        if (openCount > closeCount && (char.IsDigit(last) || last == ')'))
+                        {
+                            tbcal.Text += ")";
+                        }
                     }
                     return;
                 }
