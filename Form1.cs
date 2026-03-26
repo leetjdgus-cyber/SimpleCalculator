@@ -93,7 +93,7 @@ namespace SimpleCalculator
                     }
                     return;
                 }
-
+                //CE버튼 구현 완성, 연산자와 숫자 사이의 마지막 연산자까지만 남기고 나머지는 삭제
                 if (text == "CE")
                 {
                     var cal = tbcal.Text;
