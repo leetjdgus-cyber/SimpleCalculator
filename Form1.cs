@@ -146,7 +146,26 @@ namespace SimpleCalculator
                 if (text == "del")
                 {
                     if (!string.IsNullOrEmpty(tbcal.Text))
+                    {
                         tbcal.Text = tbcal.Text.Substring(0, tbcal.Text.Length - 1);
+
+                        var current = tbcal.Text;
+                        int lastOp = -1;
+                        for (int i = current.Length - 1; i >= 1; i--)
+                        {
+                            char c = current[i];
+                            if (c == '+' || c == '-' || c == 'X' || c == '÷')
+                            {
+                                lastOp = i;
+                                break;
+                            }
+                        }
+
+                        if (string.IsNullOrEmpty(current))
+                            tbresult.Text = "0";
+                        else
+                            tbresult.Text = lastOp >= 0 ? current.Substring(lastOp + 1) : current;
+                    }
                     return;
                 }
             }
