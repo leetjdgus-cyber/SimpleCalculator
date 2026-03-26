@@ -24,7 +24,7 @@ namespace SimpleCalculator
                         if (string.IsNullOrWhiteSpace(exp))
                             return;
 
-                        // X를 *로 변환 (곱하기), %를 /로 변환 (나누기)
+                        // X를 *로 변환 (곱하기), ÷를 /로 변환 (나누기)
                         exp = exp.Replace("X", "*");
                         exp = exp.Replace("÷", "/");
 
@@ -135,14 +135,14 @@ namespace SimpleCalculator
 
                     return;
                 }
-
+                //C 버튼 구현 완성, 모든 텍스트 박스 초기화
                 if (text == "C")
                 {
                     tbcal.Clear();
                     tbresult.Clear();
                     return;
                 }
-
+                //del 버튼 구현 완성, 텍스트 박스에서 마지막 문자 삭제, 삭제 후 마지막 연산자 이후의 숫자만 결과창에 표시
                 if (text == "del")
                 {
                     if (!string.IsNullOrEmpty(tbcal.Text))
@@ -168,6 +168,16 @@ namespace SimpleCalculator
                     }
                     return;
                 }
+            }
+        }
+
+        private void bnSquare_Click(object sender, EventArgs e)
+        {
+            if (double.TryParse(tbresult.Text, out var v))
+            {
+                var squared = v * v;
+                tbresult.Text = squared.ToString();
+                tbcal.Text = v.ToString() + "²=" + squared.ToString();
             }
         }
 
